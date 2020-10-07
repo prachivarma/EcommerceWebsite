@@ -1,0 +1,7 @@
+#upload-img img {
+    border: 1px solid #0c5460;
+    padding: 10px;
+    max-height: 300px;
+    max-width: 300px;
+    margin: 10px;
+}
