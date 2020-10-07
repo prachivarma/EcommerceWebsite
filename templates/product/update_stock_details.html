@@ -1,0 +1,23 @@
+{% extends 'base/base1.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+    <title>Stock Information</title>
+{% endblock title %}
+
+{% block navbar %}
+    {% include 'base/seller_nav.html' %}
+{% endblock navbar %}
+
+{% block content %}
+    <div class="container">
+        <form method="POST" action="{% url 'product_stoke_update' pk %}">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field | add_class:'form-control' }}
+            {% endfor %}
+            <button class="btn btn-success mt-3">Update</button>
+        </form>
+    </div>
+{% endblock content %}

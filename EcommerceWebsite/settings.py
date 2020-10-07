@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +50,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'EcommerceWebsite.urls'
+
+# CUSTOM USER MODEL
+AUTH_USER_MODEL = 'ACCOUNTS.AuthUser'
 
 TEMPLATES = [
     {
@@ -80,6 +85,11 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
+
+# Default login url
+LOGIN_URL = '/account/login/'
+LOGIN_REDIRECT_URL = '/'
+# SESSION_COOKIE_AGE = 60 * 10
 
 # EMAIL SMTP CONFIGURATION
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

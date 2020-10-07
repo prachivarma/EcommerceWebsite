@@ -1,0 +1,28 @@
+{% extends 'base/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}
+    <title>Login Page</title>
+{% endblock title %}
+
+{% block content %}
+    <div>
+        <div class="login-box">
+            <div class="LoginForm">
+                <form method="POST" action="{% url 'loginpage' %}">
+                    <h3 align="center" class="bg-secondary p-2 text-light">Login</h3>
+                    {% csrf_token %}
+                    <label class="col-form-label">Email</label><br>
+                    {{ form.email|add_class:'form-control' }}
+                    <label class="col-form-label">Password</label><br>
+                    {{ form.password|add_class:'form-control' }}
+                    <button type="submit" class="mt-3 btn btn-success new_account">Login</button>
+                </form>
+                <a class="btn btn-info new_account text-white" href="{% url 'signuppage' %}">Create New Account</a>
+                <br>
+                <a class="password-reset-link mt-2" href="{% url 'reset_password' %}">Forgot Password ?</a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

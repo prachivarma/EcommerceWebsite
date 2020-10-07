@@ -1,0 +1,28 @@
+{% extends 'base/base1.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}
+    <title>Create New Account</title>
+{% endblock title %}
+
+{% block content %}
+    <div>
+        <div class="LoginForm">
+            <h3 align="center" class="bg-secondary text-light p-2">Create New Account</h3>
+            <form method="POST" action="{% url 'signuppage' %}">
+                {% csrf_token %}
+                <label>Email: </label>
+                {{ form.email|add_class:'form-control' }}
+                <span class="d-none" id="emailcheck"></span>
+                <label>Password: </label>
+                {{ form.password1|add_class:'form-control' }}
+                <label>Confirm Password: </label>
+                {{ form.password2|add_class:'form-control' }}
+                <span id="massage" class="d-none"></span>
+                <br>
+                <button id="createButton" type="submit" class="mt-2 btn btn-primary">Create New Account</button>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

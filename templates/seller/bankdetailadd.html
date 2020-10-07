@@ -1,0 +1,20 @@
+{% extends 'base/base1.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+    <title>Register Your Shop</title>
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h1 style="font-family: Roboto;">Bank Account Details</h1>
+        <form id="shopform" method="POST" action="{% url 'bank_account_page' %}">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field | add_class:'form-control' }}
+            {% endfor %}
+            <button class="btn btn-success" type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock content %}

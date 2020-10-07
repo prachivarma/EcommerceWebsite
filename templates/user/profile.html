@@ -1,0 +1,52 @@
+{% extends 'base/base1.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+    <title>Profile</title>
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container">
+        <form method="POST" action="{% url 'user_profile' %}">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.label == "User" %}
+                    {{ field }}
+                {% else %}
+                    {% if field.label == "Phone number" %}
+                        <h6 class="mt-2">{{ field.label_tag }}</h6>
+                        {{ field }}
+                        <small>{{ field.errors }}</small>
+                        <button data-toggle="modal" data-target="#numberVerifyModal" class="col-3 btn btn-primary mt-2" type="button" onclick="send_otp()">Verify</button>
+                    {% else %}
+                        <h6 class="mt-2">{{ field.label_tag }}</h6>
+                        {{ field }}
+                        <small>{{ field.errors }}</small>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            <button class="btn btn-success mt-3" type="submit">Update</button>
+        </form>
+    </div>
+
+    <div class="modal fade" id="numberVerifyModal" tabindex="-1" role="dialog" aria-labelledby="numberVerifyModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="numberVerifyModal1">Verify New Mobile Number</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input id="otp_field" class="form-control" placeholder="OTP" type="tel" required>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Verify</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
