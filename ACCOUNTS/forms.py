@@ -1,12 +1,11 @@
 from django import forms
+from django.contrib import messages
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
-class UserLoginForm(forms.Form):
+class SignUpForm(forms.Form):
     email = forms.EmailField()
-    password = forms.CharField(label='Password', widget=forms.PasswordInput())
-
-
-class UserCreateForm(forms.Form):
-    email = forms.EmailField()
-    password1 = forms.CharField(widget=forms.PasswordInput())
-    password2 = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)

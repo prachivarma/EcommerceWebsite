@@ -5,6 +5,11 @@
     margin: 5px;
 }
 
+.nav-side {
+    position: absolute;
+    margin-left: 70px;
+}
+
 .search-h1 {
     position: relative;
     top: -42px;
@@ -26,7 +31,8 @@
 }
 
 .searchbar {
-    width: 600px;
+    margin-left: auto;
+    width: 300px;
     max-width: 600px;
 }
 
@@ -65,7 +71,6 @@
 
 
 .active-link {
-    border-radius: 12px;
     background-color: orangered;
     text-decoration-color: black;
 }
@@ -81,7 +86,6 @@
 }
 
 .nav-hover a:hover {
-    border-radius: 12px;
     background-color: orangered;
     text-decoration-color: black;
 }

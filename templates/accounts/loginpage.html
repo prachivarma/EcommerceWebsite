@@ -1,28 +1,51 @@
-{% extends 'base/base1.html' %}
+{% extends "base/base.html" %}
 {% load widget_tweaks %}
-{% load static %}
 
 {% block title %}
-    <title>Login Page</title>
+    <title>Login | OnlineStore.com</title>
 {% endblock title %}
 
 {% block content %}
-    <div>
-        <div class="login-box">
-            <div class="LoginForm">
-                <form method="POST" action="{% url 'loginpage' %}">
-                    <h3 align="center" class="bg-secondary p-2 text-light">Login</h3>
-                    {% csrf_token %}
-                    <label class="col-form-label">Email</label><br>
-                    {{ form.email|add_class:'form-control' }}
-                    <label class="col-form-label">Password</label><br>
-                    {{ form.password|add_class:'form-control' }}
-                    <button type="submit" class="mt-3 btn btn-success new_account">Login</button>
-                </form>
-                <a class="btn btn-info new_account text-white" href="{% url 'signuppage' %}">Create New Account</a>
-                <br>
-                <a class="password-reset-link mt-2" href="{% url 'reset_password' %}">Forgot Password ?</a>
-            </div>
+
+    {% if messages %}
+        {% include 'base/messages.html' %}
+    {% endif %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible fade show">
+            <p>Your email and password didn't match. Please try again.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
-    </div>
-{% endblock content %}
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login_page' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username|add_class:"form-control" }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password|add_class:"form-control" }}</td>
+            </tr>
+        </table>
+
+        <input type="submit" class="btn btn-success" value="Login">
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+    <p><a href="{% url 'reset_password' %}">Lost password?</a></p>
+
+{% endblock %}

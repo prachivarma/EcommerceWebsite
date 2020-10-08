@@ -1,82 +1,51 @@
+from django.utils.translation import ugettext as _
+from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.views import LoginView
+from django.forms import forms
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
-from .forms import UserCreateForm, UserLoginForm
-from USER.models import UserCart
+from django.views.generic import FormView
+from .forms import SignUpForm
 
 User = get_user_model()
 
 
-def login_user(request):
-    form = UserLoginForm()
-    if request.method == 'POST':
-        userform = UserLoginForm(request.POST)
-        if userform.is_valid():
-            user = authenticate(
-                request,
-                username=userform.cleaned_data['email'],
-                password=userform.cleaned_data['password']
-            )
-            if user is not None:
-                login(request, user)
-                if user.is_superuser:
-                    return redirect('admin_homepage')
-                elif user.is_staff and not user.is_superuser:
-                    return redirect('staff_home')
-                else:
-                    cart_items = request.session.get('cart')
-                    try:
-                        for item in cart_items:
-                            UserCart.objects.update_or_create(
-                                user=request.user,
-                                cart_item_id=item['pk'],
-                                quantity=item['quantity']
-                            )
-                        return redirect('homepage')
-                    except TypeError:
-                        return redirect('homepage')
+class Login(LoginView):
+    template_name = 'accounts/loginpage.html'
+
+
+class SignUp(FormView):
+    form_class = SignUpForm
+    success_url = '/'
+    template_name = 'accounts/signuppage.html'
+
+    def form_valid(self, form):
+        if not User.objects.filter(email=form.cleaned_data['email']).exists():
+            if form.cleaned_data['password'] == form.cleaned_data['confirm_password']:
+                user = self.create_user(form.cleaned_data)
+                login(self.request, user)
+                return super(SignUp, self).form_valid(form)
             else:
-                return redirect('loginpage')
-    else:
-        return render(request, 'accounts/loginpage.html', {"form": form})
-
-
-def signup_user(request):
-    form = UserCreateForm()
-    if request.method == 'POST':
-        userform = UserCreateForm(request.POST)
-        if userform.is_valid():
-            if not User.objects.filter(email=userform.cleaned_data['email']).exists():
-                user = User.objects.create_user(
-                    email=userform.cleaned_data['email'],
-                    password=userform.cleaned_data['password2']
-                )
-                user.save()
-                login(request, user)
-
-                cart_items = request.session.get('cart')
-                try:
-                    for item in cart_items:
-                        UserCart.objects.update_or_create(
-                            user=request.user,
-                            cart_item_id=item['pk'],
-                            quantity=item['quantity']
-                        )
-                    return redirect('homepage')
-                except (TypeError, ValueError):
-                    return redirect('homepage')
-            else:
-                return redirect('loginpage')
+                messages.warning(self.request, 'Password Not Match')
+                return redirect('signup_page')
         else:
-            return redirect('signuppage')
-    else:
-        return render(request, 'accounts/signuppage.html', {"form": form})
+            messages.warning(self.request, 'Account Already Exists')
+            return redirect('login_page')
+
+    def create_user(self, form):
+        user = User.objects.create_user(
+            email=form['email'],
+            password=form['password']
+        )
+        user.save()
+        return user
 
 
 def logout_user(request):
     logout(request)
-    return redirect('homepage')
+    return redirect('home_page')
 
 
 def check_register_email(request):

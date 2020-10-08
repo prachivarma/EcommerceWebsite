@@ -1,78 +1,9 @@
-{% extends 'base/base1.html' %}
-{% load static %}
+{% extends 'base/base.html' %}
 
 {% block title %}
     <title>OnlineStore.com | Home</title>
 {% endblock title %}
 
 {% block content %}
-    <div class="d-none d-md-block">
-        <div class="bg-white">
-            <ul class="nav nav-fill">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Mobiles</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Laptops</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Mobile Accessories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Mobile Covers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Laptop Accessories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">More</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div>
-        <div id="carouselExampleIndicators" class="carousel slide p-2" data-ride="carousel">
-            <div class="carousel-inner">
-                {% for image in carousel_img %}
-                    <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                        <img class="img-fluid" src="{{ image.image.url }}" alt="{{ image.description }}">
-                    </div>
-                {% endfor %}
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-
-        <div>
-            <div class="row no-gutters">
-                <div class="col-12 p-3 bg-light"><h4><b>Latest Products</b></h4></div>
-                {% for product in products %}
-                    <div class="col-6 col-sm-6 col-md-4 col-lg-2">
-                        <a href="{% url 'product_detail_page' product.id %}" class="anchor-class">
-                            <div class="card box-hover">
-                                <img class="home-card-img" src="{{ product.product_home_img.url }}"
-                                     alt="{{ product.product_name }}">
-                                <div class="card-body text-center">
-                                    <h6 class="text-overflow">{{ product.product_name }}</h6>
-                                    <p class="text-success">Rs. {{ product.product_selling_price }}</p>
-                                    <p class="text-secondary">{{ product.product_type }}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-
-    <div id="footer">
-        {% include 'base/footer.html' %}
-    </div>
+    <h1>Home</h1>
 {% endblock content %}
