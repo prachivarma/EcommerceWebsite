@@ -2,7 +2,6 @@ from django.utils.translation import ugettext as _
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import LoginView
-from django.forms import forms
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
@@ -18,7 +17,7 @@ class Login(LoginView):
 
 class SignUp(FormView):
     form_class = SignUpForm
-    success_url = '/'
+    success_url = '/user/profile/update'
     template_name = 'accounts/signuppage.html'
 
     def form_valid(self, form):

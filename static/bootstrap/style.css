@@ -4,14 +4,14 @@
 }
 
 #wrapper {
-    padding-left: 70px;
+    padding-left: 0;
     transition: all .4s ease 0s;
     height: 100%
 }
 
 #sidebar-wrapper {
     margin-left: -300px;
-    left: 70px;
+    left: 0;
     width: 300px;
     background: #222;
     position: fixed;
@@ -19,6 +19,7 @@
     z-index: 10000;
     transition: all .4s ease 0s;
 }
+
 
 .sidebar-nav {
     display: block;
@@ -133,12 +134,12 @@
 
 @media (max-width: 767px) {
     #wrapper {
-        padding-left: 70px;
+        padding-left: 0;
         transition: all .4s ease 0s;
     }
 
     #sidebar-wrapper {
-        left: 300px;
+        left: 0;
         margin-left: -300px;
         width: 300px;
     }

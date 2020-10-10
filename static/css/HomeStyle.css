@@ -32,8 +32,7 @@
 
 .searchbar {
     margin-left: auto;
-    width: 300px;
-    max-width: 600px;
+    max-width: 350px;
 }
 
 .dropdown-toggle::after {
@@ -47,6 +46,12 @@
 
 .anchor-class {
     text-decoration: none !important;
+    color: black !important;
+}
+
+.anchor-class :hover {
+    text-decoration: none !important;
+    color: skyblue;
 }
 
 .box-hover {

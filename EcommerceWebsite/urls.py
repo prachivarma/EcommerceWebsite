@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('ACCOUNTS.urls')),
     path('', include('HOME.urls')),
+    path('user/', include('USER.urls')),
+    path('seller/', include('SELLER.urls')),
 
     # PASSWORD RESET URLS
     path(

@@ -20,4 +20,4 @@ class AuthUser(AbstractUser):
         return self.email
 
     class Meta:
-        db_table = 'table_auth_user'
+        db_table = 'auth_user'

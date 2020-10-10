@@ -2,6 +2,12 @@
     height: 400px;
 }
 
+.line {
+    color: black;
+    height: 2px;
+    margin-bottom: -1px;
+}
+
 
 @media (max-width: 480px) {
     #cart-item img {

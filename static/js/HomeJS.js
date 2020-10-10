@@ -4,15 +4,6 @@ function changeImage(_src) {
     imageElement.src = _src;
 }
 
-$(function () {
-    $('a').each(function () {
-        if ($(this).prop('href') == window.location.href) {
-            $(this).addClass('active');
-            $(this).parents('li').addClass('active-link');
-        }
-    });
-});
-
 
 function searchQuery(event) {
     $('#search-result').html('');

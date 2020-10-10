@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'ACCOUNTS.apps.AccountsConfig',
     'HOME.apps.HomeConfig',
     'USER.apps.UserConfig',
+    'SELLER.apps.SellerConfig',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +91,7 @@ DATABASES = {
 }
 
 # Default login url
-LOGIN_URL = '/account/login/'
+LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 # SESSION_COOKIE_AGE = 60 * 10
 
