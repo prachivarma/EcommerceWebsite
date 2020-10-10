@@ -14,6 +14,11 @@
 {% endblock sidebar %}
 
 {% block content %}
+
+    {% if messages %}
+        {% include 'base/messages.html' %}
+    {% endif %}
+
     <div class="mt-2">
         <div class="row">
             <div class="col-12 col-md-4">
@@ -30,7 +35,7 @@
                         <p class="display-4">List Product</p>
                     </div>
                     <div class="card-body">
-                        <form method="post">
+                        <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form|crispy }}
                             <button type="submit" class="btn btn-primary float-right">ADD PRODUCT</button>

@@ -4,8 +4,58 @@
     <title>Products Inventory</title>
 {% endblock title %}
 
-{% block content %}
 
+{% block navbar %}
+    {% include 'base/seller_navbar.html' %}
+{% endblock navbar %}
+
+{% block sidebar %}
+    {% include 'base/seller_sidebar.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h6 class="display-4">Shop Inventory</h6>
+        </div>
+        <div class="card-body">
+            <div class="col-12">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Stoke</th>
+                        <th scope="col">MRP</th>
+                        <th scope="col">Selling Price</th>
+                        <th scope="col">Live</th>
+                        <th scope="col">Verified</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for product in object_list %}
+                        <tr>
+                            <th>{{ forloop.counter }}</th>
+                            <td>{{ product.product_name }}</td>
+                            <td>{{ product.product_stoke }}</td>
+                            <td>{{ product.product_MRP }}</td>
+                            <td>{{ product.product_selling_price }}</td>
+                            <td>{{ product.is_product_live }}</td>
+                            <td>{{ product.is_product_verified }}</td>
+                            <td>
+                                <button class="btn btn-warning" type="button">Update Stock</button>
+                                <button class="btn btn-primary" type="button">Add Details</button>
+                                <button class="btn btn-danger" type="button">Delete</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
 
 {% block footer %}
