@@ -10,6 +10,7 @@ class AuthUser(AbstractUser):
     username = None
     email = models.EmailField(_('email address'), unique=True)
     is_seller = models.BooleanField(default=False)
+    is_verified_seller = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

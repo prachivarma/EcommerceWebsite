@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'widget_tweaks',
+    'crispy_forms',
+
     'ACCOUNTS.apps.AccountsConfig',
     'HOME.apps.HomeConfig',
     'USER.apps.UserConfig',
     'SELLER.apps.SellerConfig',
+    'PRODUCTS.apps.ProductsConfig',
 ]
 
 MIDDLEWARE = [
@@ -77,6 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'EcommerceWebsite.wsgi.application'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 

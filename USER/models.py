@@ -5,9 +5,15 @@ User = get_user_model()
 
 
 class UserProfile(models.Model):
+    GENDER = [
+        ('male', 'Male'),
+        ('female', 'Female'),
+    ]
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
     phone_number = models.CharField(max_length=10)
+    gender = models.CharField(max_length=6, choices=GENDER)
     delivery_address_1 = models.TextField(blank=True, null=True)
     delivery_address_2 = models.TextField(blank=True, null=True)
 

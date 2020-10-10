@@ -48,6 +48,7 @@
             <ul class="sidebar-nav text-white" id="sidebar">
                 <li><a href="{% url 'home_page' %}">Home</a></li>
                 <li><a href="#">Shop By Category</a></li>
+                <li><a href="{% url 'cart' %}">Cart</a></li>
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'profile_page' %}">Profile</a></li>
                     <li><a href="#">Orders</a></li>
@@ -56,7 +57,7 @@
                     <li><a href="{% url 'login_page' %}">Login</a></li>
                     <li><a href="{% url 'signup_page' %}">Sign Up</a></li>
                 {% endif %}
-                <li><a href="#">Continue as Seller</a></li>
+                <li><a href="{% url 'seller_home' %}">Continue as Seller</a></li>
                 <li><a href="#">Contact Us</a></li>
                 <li><a href="#">About Us</a></li>
             </ul>
@@ -66,7 +67,7 @@
 
 
 {% block navbar %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-1">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
         <button class="btn btn-outline-primary menu-toggle" type="button"><i class="fas fa-bars"></i></button>
 
