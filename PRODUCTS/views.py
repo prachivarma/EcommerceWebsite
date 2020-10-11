@@ -6,6 +6,8 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.contrib.auth import get_user_model
+from LAPTOP.forms import LaptopDetailUpdateForm
+from PHONES.forms import PhoneDetailsUpdateForm
 from .models import Product
 from .forms import ListProductForm, UpdateProductForm
 
@@ -34,7 +36,10 @@ class InventoryListView(ListView):
     template_name = 'products/inventory_page.html'
     model = Product
     paginate_by = 20
-    ordering = '-id'
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(product_shop_id=self.request.user.shop.id)
+        return queryset
 
 
 class UpdateProductView(UpdateView):
@@ -69,3 +74,24 @@ class ProductDeleteView(DeleteView):
     def get_object(self, queryset=None):
         product = get_object_or_404(Product, id=self.kwargs['id'])
         return product
+
+
+@method_decorator([login_required, user_passes_test(lambda u: u.is_seller, login_url='/seller/register-shop/')], name='dispatch')
+class ProductDetailUpdateView(UpdateView):
+    template_name = 'products/add_update_product_details.html'
+
+    def get_form_class(self):
+        category = self.kwargs['category']
+        if category == 'Mobiles':
+            return PhoneDetailsUpdateForm
+        elif category == 'Laptops':
+            return LaptopDetailUpdateForm
+
+    def get_object(self, queryset=None):
+        model = self.get_form_class().Meta.model
+        product, created = model.objects.get_or_create(pk=self.kwargs['id'], product_id=self.kwargs['id'])
+        return product
+
+    def get_success_url(self):
+        messages.success(self.request, 'Details Updated')
+        return reverse('inventory_page')

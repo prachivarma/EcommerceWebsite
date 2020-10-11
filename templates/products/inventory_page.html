@@ -50,7 +50,7 @@
                             <td>{{ product.is_product_verified }}</td>
                             <td>
                                 <a href="{% url 'update_listing' product.id %}" class="btn btn-warning" type="button">Update Stock</a>
-                                <button class="btn btn-primary" type="button">Add Details</button>
+                                <a href="{% url 'update_phone_details' product.product_type product.id %}" class="btn btn-primary" type="button">Update Details</a>
                                 <a href="{% url 'delete_listing' product.id %}" type="button" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>

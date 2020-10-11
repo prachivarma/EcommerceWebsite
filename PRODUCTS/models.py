@@ -42,3 +42,4 @@ class Product(models.Model):
 
     class Meta:
         db_table = 'tbl_product'
+        ordering = ['-id']

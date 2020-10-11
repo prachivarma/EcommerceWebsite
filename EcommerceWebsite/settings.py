@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'USER.apps.UserConfig',
     'SELLER.apps.SellerConfig',
     'PRODUCTS.apps.ProductsConfig',
+    'PHONES.apps.PhonesConfig',
+    'LAPTOP.apps.LaptopConfig',
+
 ]
 
 MIDDLEWARE = [
