@@ -5,3 +5,13 @@
     max-width: 300px;
     margin: 10px;
 }
+
+.delete-message {
+    position: relative;
+    top: 100px;
+}
+
+#delete-button {
+    position: relative;
+    top: 50px;
+}

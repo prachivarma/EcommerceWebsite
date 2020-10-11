@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth import get_user_model
-from .models import Shop, ShopOwnerBankDetails
+from .models import Shop
 from .forms import SellerRegisterForm
 
 User = get_user_model()

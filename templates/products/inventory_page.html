@@ -14,7 +14,11 @@
 {% endblock sidebar %}
 
 {% block content %}
-    <div class="card">
+    {% if messages %}
+        {% include 'base/messages.html' %}
+    {% endif %}
+
+    <div class="card vh-100">
         <div class="card-header">
             <h6 class="display-4">Shop Inventory</h6>
         </div>
@@ -45,9 +49,9 @@
                             <td>{{ product.is_product_live }}</td>
                             <td>{{ product.is_product_verified }}</td>
                             <td>
-                                <button class="btn btn-warning" type="button">Update Stock</button>
+                                <a href="{% url 'update_listing' product.id %}" class="btn btn-warning" type="button">Update Stock</a>
                                 <button class="btn btn-primary" type="button">Add Details</button>
-                                <button class="btn btn-danger" type="button">Delete</button>
+                                <a href="{% url 'delete_listing' product.id %}" type="button" class="btn btn-danger">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -55,6 +59,24 @@
                 </table>
             </div>
         </div>
+    </div>
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
     </div>
 {% endblock content %}
 
