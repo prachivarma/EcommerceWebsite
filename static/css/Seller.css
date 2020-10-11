@@ -15,3 +15,8 @@
     position: relative;
     top: 50px;
 }
+
+.seller-product-img {
+    max-height: 300px;
+    width: auto;
+}

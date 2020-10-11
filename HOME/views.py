@@ -12,3 +12,11 @@ class HomeView(TemplateView):
             'carousel_images': carousel_images,
         }
         return context
+
+
+class AboutView(TemplateView):
+    template_name = 'home/about.html'
+
+
+class ContactView(TemplateView):
+    template_name = 'home/contact.html'

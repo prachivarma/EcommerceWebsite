@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 from django.contrib.auth import get_user_model
 from .models import Shop
 from .forms import SellerRegisterForm
@@ -30,5 +30,20 @@ class CreateSeller(CreateView):
 
 
 @method_decorator([login_required, user_passes_test(lambda u: u.is_seller, login_url='/seller/register-shop/')], name='dispatch')
+class SellerProfileView(TemplateView):
+    template_name = 'seller/seller_profile.html'
+
+
+@method_decorator([login_required, user_passes_test(lambda u: u.is_seller, login_url='/seller/register-shop/')], name='dispatch')
 class SellerHomeView(TemplateView):
     template_name = 'seller/seller_home.html'
+
+
+@method_decorator([login_required, user_passes_test(lambda u: u.is_seller, login_url='/seller/register-shop/')], name='dispatch')
+class SellerOrdersView(TemplateView):
+    template_name = 'seller/seller_orders.html'
+
+
+@method_decorator([login_required, user_passes_test(lambda u: u.is_seller, login_url='/seller/register-shop/')], name='dispatch')
+class SellerPaymentView(TemplateView):
+    template_name = 'seller/seller_payments.html'

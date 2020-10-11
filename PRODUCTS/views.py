@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.urls import reverse
@@ -42,9 +43,16 @@ class InventoryListView(ListView):
         return queryset
 
 
+@method_decorator([login_required, user_passes_test(lambda u: u.is_seller, login_url='/seller/register-shop/')], name='dispatch')
 class UpdateProductView(UpdateView):
     template_name = 'products/update_listing_page.html'
     form_class = UpdateProductForm
+
+    def get(self, request, *args, **kwargs):
+        if self.get_object().product_shop_id == self.request.user.shop.id:
+            return super().get(request, *args, **kwargs)
+        else:
+            return HttpResponse("You don't have access to this page...")
 
     def form_valid(self, form):
         if form.cleaned_data['is_product_live'] and self.object.is_product_verified:
@@ -64,6 +72,11 @@ class UpdateProductView(UpdateView):
     def get_success_url(self):
         return reverse('inventory_page')
 
+    def get_context_data(self, **kwargs):
+        context = super(UpdateProductView, self).get_context_data()
+        context['image'] = self.object.product_home_img
+        return context
+
 
 @method_decorator([login_required, user_passes_test(lambda u: u.is_seller, login_url='/seller/register-shop/')], name='dispatch')
 class ProductDeleteView(DeleteView):
@@ -80,6 +93,12 @@ class ProductDeleteView(DeleteView):
 class ProductDetailUpdateView(UpdateView):
     template_name = 'products/add_update_product_details.html'
 
+    def get(self, request, *args, **kwargs):
+        if self.get_shop_id().product_shop_id == self.request.user.shop.id:
+            return super().get(request, *args, **kwargs)
+        else:
+            return HttpResponse("You don't have access to this page...")
+
     def get_form_class(self):
         category = self.kwargs['category']
         if category == 'Mobiles':
@@ -95,3 +114,7 @@ class ProductDetailUpdateView(UpdateView):
     def get_success_url(self):
         messages.success(self.request, 'Details Updated')
         return reverse('inventory_page')
+
+    def get_shop_id(self):
+        product_id = get_object_or_404(Product, id=self.kwargs['id'])
+        return product_id

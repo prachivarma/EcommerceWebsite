@@ -3,6 +3,14 @@
     color: #FFF;
 }
 
+.vh-75 {
+    height: 75vh !important;
+}
+
+.vh-50 {
+    height: 50vh !important;
+}
+
 footer {
     width: 100%;
     background-color: #263238;
